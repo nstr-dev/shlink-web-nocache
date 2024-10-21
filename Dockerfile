@@ -1,9 +1,3 @@
-FROM node:23.0-alpine as node
-COPY . /shlink-web-client
-ARG VERSION="latest"
-ENV VERSION ${VERSION}
-RUN cd /shlink-web-client && npm ci && npm run build
-
 FROM nginxinc/nginx-unprivileged:1.27-alpine
 ARG UID=101
 LABEL maintainer="Alejandro Celaya <alejandro@alejandrocelaya.com>"
@@ -20,3 +14,10 @@ RUN echo '[]' > /usr/share/nginx/html/servers.json \
 
 # Switch to non-privileged UID as the last step
 USER $UID
+
+
+FROM node:23.0-alpine as node
+COPY . /shlink-web-client
+ARG VERSION="latest"
+ENV VERSION ${VERSION}
+RUN cd /shlink-web-client && npm ci && npm run build && npm run start
