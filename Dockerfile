@@ -18,7 +18,8 @@ USER $UID
 
 FROM node:23.0-alpine as node
 COPY . /shlink-web-client
+WORKDIR /shlink-web-client
 ARG VERSION="latest"
 ENV VERSION ${VERSION}
-RUN cd /shlink-web-client && npm ci && npm run build
+RUN npm ci && npm run build
 CMD npm start
