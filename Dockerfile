@@ -20,4 +20,4 @@ FROM node:23.0-alpine as node
 COPY . /shlink-web-client
 ARG VERSION="latest"
 ENV VERSION ${VERSION}
-RUN cd /shlink-web-client && npm ci && npm run build && npm run start
+RUN cd /shlink-web-client && npm ci && npm run build
